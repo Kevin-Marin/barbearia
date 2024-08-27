@@ -1,0 +1,6 @@
+comandos no terminal para inicializar o projeto:
+-npm init -y
+-npm i express
+-npm i nodemon --save-dev
+
+No vsCode abrir o package.json e alterar o "main" e adicionar o "dev" em script
