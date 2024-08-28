@@ -4,3 +4,7 @@ comandos no terminal para inicializar o projeto:
 -npm i nodemon --save-dev
 
 No vsCode abrir o package.json e alterar o "main" e adicionar o "dev" em script
+
+middleware
+
+-npm i axios
