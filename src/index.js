@@ -2,6 +2,7 @@ const express = require("express")
 const cep_endereco = require("./middlewares/cep_endereco.js")
 const cliente_controller = require("./controllers/cliente.js")
 const barbeiro_controller = require("./controllers/barbeiro.js")
+const barbearia_controller = require("./controllers/barbearia.js")
 const app = express()
 const port = 5000
 
@@ -37,30 +38,30 @@ app.delete("/cliente/:id", (req, res) => {
 
 // barbeiro
 
-app.get("/barbeiro", (req, res) => {
+app.get("/barbearia", (req, res) => {
     res.json(barbeiro_controller.index())
 })
 
-app.get("/barbeiro/:id", (req, res) => {
+app.get("/barbearia/:id", (req, res) => {
     res.json(barbeiro_controller.show(req.params.id))
 })
 
-app.post("/barbeiro", (req, res) => {
+app.post("/barbearia", cep_endereco, (req, res) => {
     const code = barbeiro_controller.store(req.body)
     res.status(code).json()
 })
 
-app.put("/barbeiro/:id", (req, res) => {
+app.put("/barbearia/:id", (req, res) => {
     const code = barbeiro_controller.update(req.body, req.params.id)
     res.status(code).json()
 })
 
-app.delete("/barbeiro/:id", (req, res) => {
+app.delete("/barbearia/:id", (req, res) => {
     barbeiro_controller.destroy(req.params.id)
     res.json()
 })
 
-
+//barbearia
 
 
 
