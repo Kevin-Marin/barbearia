@@ -1,85 +1,25 @@
-const express = require("express")
-const cep_endereco = require("./middlewares/cep_endereco.js")
-const cliente_controller = require("./controllers/cliente.js")
-const barbeiro_controller = require("./controllers/barbeiro.js")
-const barbearia_controller = require("./controllers/barbearia.js")
-const app = express()
-const port = 5000
+const express = require("express");
+const cliente_router = require("./routes/cliente.js");
+const rede_router = require("./routes/rede.js");
+const barbearia_router = require("./routes/barbearia.js");
+const servico_router = require("./routes/servico.js");
+const usuario_router = require("./routes/usuario.js");
+const atendimento_router = require("./routes/atendimento.js");
+const barbeiro_router = require("./routes/barbeiro.js");
+const cep_endereco = require("./middlewares/cep_endereco.js");
 
-app.use(express.json())
-// app.use(cep_endereco) // Midleware de uso global
+const porta = 6000;
+const app = express();
+app.use(express.json());
+app.use(cep_endereco);
 
-app.post("/barbearia", cep_endereco, (req, res) => {
-    res.json(req.body)
-})
-
-app.get("/cliente", (req, res) => {
-    res.json(cliente_controller.index())
-})
-
-app.get("/cliente/:id", (req, res) => {
-    res.json(cliente_controller.show(req.params.id))
-})
-
-app.post("/cliente", (req, res) => {
-    const code = cliente_controller.store(req.body)
-    res.status(code).json()
-})
-
-app.put("/cliente/:id", (req, res) => {
-    const code = cliente_controller.update(req.body, req.params.id)
-    res.status(code).json()
-})
-
-app.delete("/cliente/:id", (req, res) => {
-    cliente_controller.destroy(req.params.id)
-    res.json()
-})
-
-// barbeiro
-
-app.get("/barbearia", (req, res) => {
-    res.json(barbeiro_controller.index())
-})
-
-app.get("/barbearia/:id", (req, res) => {
-    res.json(barbeiro_controller.show(req.params.id))
-})
-
-app.post("/barbearia", cep_endereco, (req, res) => {
-    const code = barbeiro_controller.store(req.body)
-    res.status(code).json()
-})
-
-app.put("/barbearia/:id", (req, res) => {
-    const code = barbeiro_controller.update(req.body, req.params.id)
-    res.status(code).json()
-})
-
-app.delete("/barbearia/:id", (req, res) => {
-    barbeiro_controller.destroy(req.params.id)
-    res.json()
-})
-
-//barbearia
-
-
-
-
-
-
-
-
-
-app.listen(port, () => {
-    console.log(`Server running in ${port} port`)
-})
-
-
-
-
-
-
-
-
-
+app.use("/cliente", cliente_router);
+app.use("/rede", rede_router);
+app.use("/barbearia", barbearia_router);
+app.use("/barbeiro", barbeiro_router);
+app.use("/servico", servico_router);
+app.use("/atendimento", atendimento_router);
+app.use("/usuario", usuario_router);
+app.listen(porta, () => {
+  console.log(`Server running in ${porta} port.`);
+});
